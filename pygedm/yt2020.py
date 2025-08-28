@@ -48,7 +48,7 @@ Upsilon = 4*np.pi*10*U_G*U_Msun/U_pc*U_mp/U_eV*r_s**2*rho_s*mu/T    # Upsilon ap
 # integrated function excluding n_0^{sphe} (left-hand side of eq.[4])
 y_sphe  = 4.0*np.pi*r_array**2*mu_e*m_p/c_scaling*np.exp(-Upsilon*(1-np.log(1+r_array/r_s)*r_s/r_array))
 
-I_sphe   = integrate.simps(y_sphe,r_array)      # integration
+I_sphe   = integrate.simpson(y_sphe,r_array)      # integration
 n_0_sphe = M_b/Z_halo/I_sphe                    # central electron number density for spherical comp. [cm^{-3}]
 #print('Upsilon = %f' % Upsilon)
 #print('n_0_sphe = %f [cm^{-3}]' % n_0_sphe)
@@ -134,9 +134,9 @@ def calculate_halo_dm(l, b, component='both'):
     y_DM_disk = vfunc_disk(l_FRB, b_FRB, xx)
 
     if component == 'spherical' or component == 'both':
-        DM_sphe = 1000 * integrate.simps(y_DM_sphe, xx) * u.pc / u.cm**3 # [pc/cm^3]
+        DM_sphe = 1000 * integrate.simpson(y_DM_sphe, xx) * u.pc / u.cm**3 # [pc/cm^3]
     if component == 'disk' or component == 'both':
-        DM_disk = 1000 * integrate.simps(y_DM_disk, xx) * u.pc / u.cm**3 # [pc/cm^3]
+        DM_disk = 1000 * integrate.simpson(y_DM_disk, xx) * u.pc / u.cm**3 # [pc/cm^3]
 
     if component == 'both':
         return DM_sphe + DM_disk
